@@ -1,0 +1,312 @@
+# 📋 SELECT ALL THIS CODE BELOW AND COPY IT:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Born Again Deliverance Ministries</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-purple-50 to-white">
+    <div id="root"></div>
+    
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script type="text/babel" data-type="module">
+        const { useState, useEffect } = React;
+        const { createRoot } = ReactDOM;
+        
+        function Icon({ name, size = 24, className = "" }) {
+            const iconEl = React.useRef(null);
+            useEffect(() => {
+                if (iconEl.current && window.lucide) {
+                    const icon = window.lucide.createIcons({
+                        icons: { [name]: window.lucide[name] },
+                        attrs: { width: size, height: size, class: className }
+                    });
+                }
+            }, [name, size, className]);
+            return React.createElement('i', { 
+                ref: iconEl, 
+                'data-lucide': name,
+                className: className
+            });
+        }
+
+        function BADMApp() {
+            const [currentBanner, setCurrentBanner] = useState(0);
+            const [showPrayerForm, setShowPrayerForm] = useState(false);
+            const [showSermons, setShowSermons] = useState(false);
+            const [prayerData, setPrayerData] = useState({ name: '', contact: '', request: '', urgent: false });
+            
+            const banners = [
+                {
+                    title: "📚 BOOK LAUNCH - THIS FRIDAY!",
+                    subtitle: "Join us for a powerful celebration",
+                    time: "6:45 PM - Don't Miss It!"
+                },
+                {
+                    title: "🔥 EVANGELISM TRAINING STARTS SOON",
+                    subtitle: "Equip yourself to share the Gospel",
+                    time: "Tuesday, October 14 @ 6:30 PM"
+                },
+                {
+                    title: "📖 Current Series: OPEN EYE THAT CAN SEE",
+                    subtitle: "Seeing in the Spirit Realm",
+                    time: "2 Kings 6:15-17"
+                }
+            ];
+
+            useEffect(() => {
+                const timer = setInterval(() => {
+                    setCurrentBanner((prev) => (prev + 1) % banners.length);
+                }, 6000);
+                return () => clearInterval(timer);
+            }, []);
+
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [showPrayerForm, showSermons]);
+
+            const handleSubmitPrayer = () => {
+                if (prayerData.name && prayerData.contact && prayerData.request) {
+                    alert('🙏 Prayer request submitted! Our intercessory team will pray for you. God bless you!');
+                    setShowPrayerForm(false);
+                    setPrayerData({ name: '', contact: '', request: '', urgent: false });
+                } else {
+                    alert('Please fill in all fields');
+                }
+            };
+
+            return (
+                <div className="min-h-screen">
+                    <header className="bg-gradient-to-r from-purple-900 to-purple-700 text-white p-6 shadow-lg">
+                        <div className="max-w-4xl mx-auto">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <h1 className="text-2xl font-bold">Born Again Deliverance</h1>
+                                    <p className="text-purple-200 text-sm">Ministries International</p>
+                                </div>
+                                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg">
+                                    <div className="text-blue-700 text-xs font-bold text-center">LOGO</div>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <div className="max-w-4xl mx-auto p-4 pb-20">
+                        <div className="bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-2xl p-6 mb-6 shadow-xl animate-fade-in">
+                            <div className="text-center">
+                                <h2 className="text-xl font-bold mb-2">{banners[currentBanner].title}</h2>
+                                <p className="text-amber-100 mb-1">{banners[currentBanner].subtitle}</p>
+                                <p className="text-sm font-semibold">{banners[currentBanner].time}</p>
+                            </div>
+                            <div className="flex justify-center gap-2 mt-4">
+                                {banners.map((_, idx) => (
+                                    <div key={idx} className={`h-2 w-2 rounded-full ${idx === currentBanner ? 'bg-white' : 'bg-amber-300'}`} />
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="bg-gradient-to-r from-purple-700 to-purple-900 text-white rounded-2xl p-6 mb-6 shadow-xl">
+                            <div className="text-center">
+                                <h3 className="text-2xl font-bold mb-3">KEEP PUSHING FORWARD</h3>
+                                <p className="text-purple-100 italic leading-relaxed mb-3">
+                                    "Brethren, I count not myself to have apprehended: but this one thing I do, forgetting those things which are behind, and reaching forth unto those things which are before, I press toward the mark for the prize of the high calling of God in Christ Jesus."
+                                </p>
+                                <p className="text-amber-300 font-semibold">— Philippians 3:13-14 KJV</p>
+                            </div>
+                        </div>
+
+                        <div className="bg-white rounded-2xl p-6 mb-6 shadow-lg border-l-4 border-purple-600">
+                            <div className="flex items-start gap-3">
+                                <i data-lucide="book" className="text-purple-600 mt-1 flex-shrink-0"></i>
+                                <div>
+                                    <h3 className="font-bold text-purple-900 text-lg mb-2">OPEN EYE THAT CAN SEE</h3>
+                                    <p className="text-gray-700 italic mb-3 leading-relaxed">
+                                        "And when the servant of the man of God was risen early, and gone forth, behold, an host compassed the city both with horses and chariots. And his servant said unto him, Alas, my master! how shall we do? And he answered, Fear not: for they that be with us are more than they that be with them. And Elisha prayed, and said, LORD, I pray thee, open his eyes, that he may see."
+                                    </p>
+                                    <p className="text-purple-700 font-semibold">— 2 Kings 6:15-17 KJV</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="mb-6">
+                            <h3 className="text-xl font-bold text-gray-800 mb-4">Quick Access</h3>
+                            <div className="grid grid-cols-2 gap-4">
+                                <button onClick={() => setShowSermons(true)} className="flex flex-col items-center justify-center p-6 rounded-xl bg-gradient-to-br from-red-600 to-red-700 text-white shadow-lg hover:scale-105 transform transition">
+                                    <i data-lucide="play" className="mb-2"></i>
+                                    <span className="font-semibold text-sm">Watch Sermons</span>
+                                </button>
+                                <button onClick={() => alert('💚 Online giving coming soon!')} className="flex flex-col items-center justify-center p-6 rounded-xl bg-gradient-to-br from-green-600 to-green-700 text-white shadow-lg hover:scale-105 transform transition">
+                                    <i data-lucide="dollar-sign" className="mb-2"></i>
+                                    <span className="font-semibold text-sm">Give Online</span>
+                                </button>
+                                <button onClick={() => setShowPrayerForm(true)} className="flex flex-col items-center justify-center p-6 rounded-xl bg-gradient-to-br from-purple-600 to-purple-700 text-white shadow-lg hover:scale-105 transform transition">
+                                    <i data-lucide="send" className="mb-2"></i>
+                                    <span className="font-semibold text-sm">Prayer Request</span>
+                                </button>
+                                <button onClick={() => alert('🎉 Share your testimony!')} className="flex flex-col items-center justify-center p-6 rounded-xl bg-gradient-to-br from-pink-600 to-pink-700 text-white shadow-lg hover:scale-105 transform transition">
+                                    <i data-lucide="heart" className="mb-2"></i>
+                                    <span className="font-semibold text-sm">Share Testimony</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="bg-white rounded-2xl p-6 mb-6 shadow-lg">
+                            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                <i data-lucide="clock"></i>
+                                Service Times
+                            </h3>
+                            <div className="space-y-3">
+                                <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                                    <div>
+                                        <div className="font-semibold text-purple-900">Sunday Service</div>
+                                        <div className="text-sm text-purple-600">Main Worship Service</div>
+                                    </div>
+                                    <div className="font-bold text-purple-900">10:00 AM</div>
+                                </div>
+                                <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                                    <div>
+                                        <div className="font-semibold text-blue-900">Tuesday Bible Study</div>
+                                        <div className="text-sm text-blue-600">Deep Dive into the Word</div>
+                                    </div>
+                                    <div className="font-bold text-blue-900">6:30 PM</div>
+                                </div>
+                                <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                    <div>
+                                        <div className="font-semibold text-green-900">Friday Youth Fellowship</div>
+                                        <div className="text-sm text-green-600">Young People Meeting</div>
+                                    </div>
+                                    <div className="font-bold text-green-900">6:30 PM</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-purple-900 text-white rounded-2xl p-6 shadow-xl">
+                            <h3 className="font-bold text-xl mb-4 text-center">📍 Visit Us</h3>
+                            <div className="space-y-3 mb-4">
+                                <div className="flex items-start gap-3">
+                                    <i data-lucide="map-pin" className="flex-shrink-0 mt-1"></i>
+                                    <div>
+                                        <div className="font-semibold">Bernard Road, Poinciana Arena</div>
+                                        <div className="text-purple-200 text-sm">Nassau, Bahamas</div>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <i data-lucide="phone" className="flex-shrink-0"></i>
+                                    <a href="tel:+12423948569" className="font-semibold hover:text-amber-300">242-394-8569</a>
+                                </div>
+                            </div>
+                            <div className="flex gap-3 justify-center text-sm">
+                                <a href="https://maps.google.com/?q=Bernard+Road+Poinciana+Arena+Nassau+Bahamas" target="_blank" className="bg-white text-purple-900 px-4 py-2 rounded-lg font-semibold hover:bg-purple-100">📍 Get Directions</a>
+                                <a href="tel:+12423948569" className="bg-white text-purple-900 px-4 py-2 rounded-lg font-semibold hover:bg-purple-100">📞 Call Us</a>
+                            </div>
+                        </div>
+
+                        <div className="mt-6 flex justify-center gap-4">
+                            <a href="https://m.facebook.com/bornagaindeliveranceministries/" target="_blank" className="bg-blue-600 text-white p-3 rounded-full hover:scale-110 transition shadow-lg">
+                                <i data-lucide="facebook"></i>
+                            </a>
+                            <a href="https://youtube.com/@bornagaindeliveranceminist9760" target="_blank" className="bg-red-600 text-white p-3 rounded-full hover:scale-110 transition shadow-lg">
+                                <i data-lucide="youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    {showPrayerForm && (
+                        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                            <div className="bg-white rounded-2xl p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
+                                <h2 className="text-2xl font-bold text-purple-900 mb-4">🙏 Submit Prayer Request</h2>
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="block text-gray-700 font-semibold mb-2">Your Name</label>
+                                        <input type="text" value={prayerData.name} onChange={(e) => setPrayerData({...prayerData, name: e.target.value})} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-gray-700 font-semibold mb-2">Email or Phone</label>
+                                        <input type="text" value={prayerData.contact} onChange={(e) => setPrayerData({...prayerData, contact: e.target.value})} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-gray-700 font-semibold mb-2">Prayer Request</label>
+                                        <textarea rows="4" value={prayerData.request} onChange={(e) => setPrayerData({...prayerData, request: e.target.value})} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600" placeholder="Share your prayer need..."></textarea>
+                                    </div>
+                                    <div>
+                                        <label className="flex items-center">
+                                            <input type="checkbox" checked={prayerData.urgent} onChange={(e) => setPrayerData({...prayerData, urgent: e.target.checked})} className="mr-2" />
+                                            <span className="text-sm">⚡ Mark as urgent</span>
+                                        </label>
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <button onClick={handleSubmitPrayer} className="flex-1 bg-purple-700 text-white py-3 rounded-lg font-semibold hover:bg-purple-800">Submit</button>
+                                        <button onClick={() => setShowPrayerForm(false)} className="flex-1 bg-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-400">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {showSermons && (
+                        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                            <div className="bg-white rounded-2xl p-6 max-w-md w-full">
+                                <h2 className="text-2xl font-bold text-purple-900 mb-4">📺 Watch Our Sermons</h2>
+                                <div className="space-y-4">
+                                    <a href="https://youtube.com/@bornagaindeliveranceminist9760" target="_blank" className="flex items-center gap-4 p-4 bg-red-50 border-2 border-red-200 rounded-xl hover:bg-red-100">
+                                        <div className="bg-red-600 text-white p-3 rounded-lg">
+                                            <i data-lucide="youtube"></i>
+                                        </div>
+                                        <div>
+                                            <div className="font-bold">YouTube Channel</div>
+                                            <div className="text-sm text-gray-600">Full sermons & teachings</div>
+                                        </div>
+                                    </a>
+                                    <a href="https://m.facebook.com/bornagaindeliveranceministries/" target="_blank" className="flex items-center gap-4 p-4 bg-blue-50 border-2 border-blue-200 rounded-xl hover:bg-blue-100">
+                                        <div className="bg-blue-600 text-white p-3 rounded-lg">
+                                            <i data-lucide="facebook"></i>
+                                        </div>
+                                        <div>
+                                            <div className="font-bold">Facebook Page</div>
+                                            <div className="text-sm text-gray-600">Live streams & updates</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <button onClick={() => setShowSermons(false)} className="w-full mt-4 bg-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-400">Close</button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        const root = createRoot(document.getElementById('root'));
+        root.render(<BADMApp />);
+    </script>
+    
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</body>
+</html>
+```
+
+---
+
+# ✅ INSTRUCTIONS:
+
+1. **Click inside the code box above** (where it says `<!DOCTYPE html>`)
+2. Press **Ctrl+A** (Windows) or **Cmd+A** (Mac) to select ALL
+3. Press **Ctrl+C** (Windows) or **Cmd+C** (Mac) to copy
+4. Go back to your GitHub tab
+5. **Paste** it in the big text box (Ctrl+V or Cmd+V)
+6. Come back and tell me "Code is pasted!"
